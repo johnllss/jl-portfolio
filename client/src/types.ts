@@ -1,5 +1,3 @@
-// Strings that start with "[" are placeholders you still need to fill in.
-
 export interface Profile {
   name: string;
   role: string;

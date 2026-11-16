@@ -1,4 +1,3 @@
-/* JL Folio design system tokens. Dark is the default theme, light is full secondary. */
 :root,
 :root[data-theme="dark"] {
   --surface-0: #171512;

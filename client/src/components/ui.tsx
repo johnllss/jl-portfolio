@@ -5,7 +5,6 @@ import {
 } from "react-icons/si";
 import type { IconType } from "react-icons";
 
-// A string that starts with "[" is a placeholder still to be replaced.
 export const isPlaceholder = (s: string) => s.trim().startsWith("[");
 
 export function Txt({ children, className }: { children: string; className?: string }) {

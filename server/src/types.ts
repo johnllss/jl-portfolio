@@ -1,5 +1,3 @@
-// Strings that start with "[" are placeholders you still need to fill in.
-
 export interface Profile {
   name: string;
   role: string;
@@ -30,14 +28,14 @@ export interface Project {
   highlights: string[];
   repoUrl: string;
   liveUrl: string;
-  images: string[]; // screenshot placeholders; swap for real image paths in client/public
-  reflection: string; // "what I learned" — your voice goes here
+  images: string[];
+  reflection: string;
 }
 
 export interface WorkSample {
   id: string;
   title: string;
-  type: string; // Business | Volunteer | Part-time | Formal work
+  type: string;
   period: string;
   organization: string;
   description: string;
@@ -64,5 +62,5 @@ export interface ContactBody {
   name: string;
   email: string;
   message: string;
-  website?: string; // honeypot: real people leave this empty
+  website?: string;
 }
