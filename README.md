@@ -22,4 +22,8 @@ API: `GET /api/profile · /api/projects · /api/projects/:slug · /api/work-samp
 
 ## Contact form
 
-Validates input, rate-limits (5 per 15 min per IP), has a honeypot field, and appends each message to `server/messages.jsonl` and the server console.
+Validates input, rate-limits (5 per 15 min per IP), has a honeypot field, then emails you through [Resend](https://resend.com) (`server/src/mail.ts`). No database.
+
+1. Create a Resend account and an API key.
+2. Locally: copy `server/.env.example` to `server/.env` and fill in `RESEND_API_KEY` and `CONTACT_TO_EMAIL`.
+3. On Render: add the same variables under Environment. Never commit `.env`.

@@ -1,10 +1,13 @@
 import express from "express";
 import type { Request } from "express";
-import { appendFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { profile, projects, workSamples, references, testimonials } from "./data";
 import type { ContactBody } from "./types";
+import { MailConfigError, mailIsConfigured, sendContactEmail } from "./mail";
+
+const envFile = path.join(import.meta.dirname, "..", ".env");
+if (existsSync(envFile)) process.loadEnvFile(envFile);
 
 const PORT = Number(process.env.PORT ?? 5001);
 const app = express();
@@ -86,20 +89,16 @@ app.post("/api/contact", async (req: Request, res) => {
     return;
   }
 
-  const entry = {
-    receivedAt: new Date().toISOString(),
-    name: result.data.name,
-    email: result.data.email,
-    message: result.data.message,
-  };
-
   try {
-    await appendFile(path.join(import.meta.dirname, "..", "messages.jsonl"), JSON.stringify(entry) + "\n");
-    console.log("New contact message:", entry);
+    await sendContactEmail(result.data);
     res.status(201).json({ ok: true });
   } catch (err) {
-    console.error("Failed to store contact message:", err);
-    res.status(500).json({ error: "Could not save your message. Please email me directly." });
+    console.error("Contact email failed:", err);
+    if (err instanceof MailConfigError) {
+      res.status(503).json({ error: "The contact form isn't set up yet. Please email me directly." });
+    } else {
+      res.status(502).json({ error: "Could not send your message. Please email me directly." });
+    }
   }
 });
 
@@ -114,6 +113,10 @@ if (existsSync(clientDist)) {
   app.use(express.static(clientDist));
   // express 5 wildcard syntax. this lets React Router handle deep links like /projects/duck-forum.
   app.get("/{*splat}", (_req, res) => res.sendFile(path.join(clientDist, "index.html")));
+}
+
+if (!mailIsConfigured()) {
+  console.warn("WARNING: RESEND_API_KEY / CONTACT_TO_EMAIL not set. The contact form will return 503 until they are.");
 }
 
 app.listen(PORT, () => {
