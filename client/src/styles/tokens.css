@@ -1,0 +1,57 @@
+/* JL Folio design system tokens. Dark is the default theme, light is full secondary. */
+:root,
+:root[data-theme="dark"] {
+  --surface-0: #171512;
+  --surface-100: #211e1b;
+  --surface-200: #2b2723;
+  --border: #4a453e;
+  --ink: #ede7e0;
+  --ink-muted: #a89f95;
+  --ink-faint: #6b6459;
+  --accent: #7c9683;
+  --accent-strong: #97ad9d;
+  --on-accent: #14201a;
+  --accent-2: #b98a72;
+  --success: #7f9d6f;
+  --warning: #c2965b;
+  --danger: #bb6b62;
+  --info: #7089a8;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --surface-0: #faf7f3;
+  --surface-100: #f1ece4;
+  --surface-200: #e6ded3;
+  --border: #d8cfc2;
+  --ink: #262220;
+  --ink-muted: #6f6459;
+  --ink-faint: #a89f92;
+  --accent: #4f6f5e;
+  --accent-strong: #3f5c4d;
+  --on-accent: #f4f7f2;
+  --accent-2: #8a5c46;
+  --success: #5c7a4c;
+  --warning: #8a6428;
+  --danger: #9c4f45;
+  --info: #4f688a;
+  color-scheme: light;
+}
+
+:root {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+}
